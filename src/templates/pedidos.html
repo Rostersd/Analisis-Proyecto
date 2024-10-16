@@ -1,0 +1,37 @@
+<!-- /templates/pedidos.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de Pedidos</title>
+</head>
+<body>
+    <h1>Gestión de Pedidos</h1>
+    <form method="post">
+        <input type="text" name="cliente" placeholder="Cliente" required>
+        <input type="text" name="producto" placeholder="Producto" required>
+        <input type="number" name="cantidad" placeholder="Cantidad" required>
+        <input type="date" name="fecha_pedido" required>
+        <select name="estado" required>
+            <option value="pendiente">Pendiente</option>
+            <option value="completado">Completado</option>
+            <option value="cancelado">Cancelado</option>
+        </select>
+        <button type="submit">Registrar Pedido</button>
+    </form>
+
+    <h2>Lista de Pedidos</h2>
+    <ul>
+        {% if pedidos %}
+            {% for pedido in pedidos %}
+                <li>ID: {{ pedido.id }} | Cliente: {{ pedido.cliente }} | Producto: {{ pedido.producto }} | Cantidad: {{ pedido.cantidad }} | Estado: {{ pedido.estado }} | Fecha: {{ pedido.fecha_pedido }}</li>
+            {% endfor %}
+        {% else %}
+            <li>No hay pedidos registrados.</li>
+        {% endif %}
+    </ul>
+    
+    <a href="{{ url_for('index') }}">Volver al inicio</a>
+</body>
+</html>

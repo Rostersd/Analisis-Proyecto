@@ -1,0 +1,28 @@
+<!-- /templates/produccion.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de Producción</title>
+</head>
+<body>
+    <h1>Gestión de Producción</h1>
+    <form method="post">
+        <input type="date" name="fecha_inicio" required>
+        <input type="number" name="id_materia_prima" placeholder="ID Materia Prima" required>
+        <input type="text" name="tipo_producto" placeholder="Tipo de Producto" required>
+        <input type="number" name="cantidad_producida" placeholder="Cantidad Producida" required>
+        <button type="submit">Planificar Producción</button>
+    </form>
+
+    <h2>Producciones en Progreso</h2>
+    <ul>
+        {% for produccion in producciones %}
+            <li>Producción ID {{ produccion.id }}: Iniciada el {{ produccion.fechaInicio }} (Estado: {{ produccion.estado }})</li>
+        {% endfor %}
+    </ul>
+    
+    <a href="{{ url_for('index') }}">Volver al inicio</a>
+</body>
+</html>

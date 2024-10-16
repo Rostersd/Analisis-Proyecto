@@ -1,0 +1,30 @@
+<!-- /templates/materia_prima.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de Materia Prima</title>
+</head>
+<body>
+    <h1>Gestión de Materia Prima</h1>
+    <form method="post">
+        <input type="text" name="nombre" placeholder="Nombre" required>
+        <input type="text" name="descripcion" placeholder="Descripción">
+        <input type="number" name="cantidad" placeholder="Cantidad" required>
+        <input type="number" name="punto_reorden" placeholder="Punto de Reorden" required>
+        <input type="text" name="proveedor" placeholder="Proveedor">
+        <input type="date" name="fecha_adquisicion" required>
+        <button type="submit">Registrar Materia Prima</button>
+    </form>
+    
+    <h2>Inventario de Materia Prima</h2>
+    <ul>
+        {% for materia in inventario %}
+            <li>{{ materia.nombre }}: {{ materia.cantidad }} unidades (Reorden: {{ materia.punto_reorden }}, Proveedor: {{ materia.proveedor }})</li>
+        {% endfor %}
+    </ul>
+    
+    <a href="{{ url_for('index') }}">Volver al inicio</a>
+</body>
+</html>
