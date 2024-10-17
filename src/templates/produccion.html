@@ -11,7 +11,11 @@
     <form method="post">
         <input type="date" name="fecha_inicio" required>
         <input type="number" name="id_materia_prima" placeholder="ID Materia Prima" required>
-        <input type="text" name="tipo_producto" placeholder="Tipo de Producto" required>
+        <select name="tipo_producto" required>
+            <option value="camisa">Camisa</option>
+            <option value="pantalon">Pantalón</option>
+            <option value="abrigo">Abrigo</option>
+        </select>
         <input type="number" name="cantidad_producida" placeholder="Cantidad Producida" required>
         <button type="submit">Planificar Producción</button>
     </form>
