@@ -1,5 +1,5 @@
 from db.connection import Base
-from sqlalchemy import Column, Integer, String, Date, ForeignKey
+from sqlalchemy import Column, Integer, String, Date, ForeignKey, Float
 
 class Produccion(Base):
     __tablename__ = 'Produccion'
@@ -10,3 +10,4 @@ class Produccion(Base):
     idMateriaPrima = Column(Integer, ForeignKey('MateriaPrima.id'))
     tipoProducto = Column(String(50))
     cantidadProducida = Column(Integer)
+    tiempo_estimado = Column(Float)

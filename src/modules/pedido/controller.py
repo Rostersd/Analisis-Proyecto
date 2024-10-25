@@ -1,36 +1,45 @@
 from db.connection import session
 from modules.pedido.model import Pedido
+from patterns.comportamentales.strategy.contexto import ContextoDeDistribucion
+from patterns.comportamentales.strategy.distribuciones import DistribucionRapida, DistribucionEconomica
 
-# Recibir y gestionar pedidos
-def recibir_pedido(id_cliente, fecha_pedido, estado, direccion_envio):
+# aca se aplica en el codigo strategy
+
+contexto_distribucion = ContextoDeDistribucion()
+
+def recibir_pedido(cliente_name, fecha_pedido, estado, direccion_envio, tipo_distribucion, producto, cantidad):
     nuevo_pedido = Pedido(
-        idCliente=id_cliente,
+        cliente_name=cliente_name,
         fechaPedido=fecha_pedido,
         estado=estado,
-        direccionEnvio=direccion_envio
+        direccionEnvio=direccion_envio,
+        producto=producto,
+        cantidad=cantidad
     )
     session.add(nuevo_pedido)
     session.commit()
-    print("Pedido recibido exitosamente.")
+    
 
-# Obtener todos los pedidos
 def obtener_pedidos():
-    pedidos = session.query(Pedido).all()  # Obtener todos los pedidos
+    pedidos = session.query(Pedido).all()
     lista_pedidos = []
     
     for pedido in pedidos:
+        tipo_distribucion = "rápida" if pedido.estado == "pendiente" else "económica"
         lista_pedidos.append({
             'id': pedido.id,
-            'idCliente': pedido.idCliente,
-            'fechaPedido': pedido.fechaPedido,
-            'fechaEnvio': pedido.fechaEnvio,
+            'cliente_name': pedido.cliente_name,
+            'fechaPedido': str(pedido.fechaPedido),
+            'fechaEnvio': str(pedido.fechaEnvio) if pedido.fechaEnvio else None,
             'estado': pedido.estado,
             'direccionEnvio': pedido.direccionEnvio,
+            'producto': pedido.producto,
+            'cantidad': pedido.cantidad,
+            'tipo_distribucion':tipo_distribucion
         })
     
-    return lista_pedidos  # Devolver la lista de pedidos
+    return lista_pedidos
 
-# Monitorear estado de los pedidos
 def monitorear_pedidos():
     pedidos = session.query(Pedido).all()
     for pedido in pedidos:
